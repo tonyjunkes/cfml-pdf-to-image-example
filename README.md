@@ -1,7 +1,9 @@
 # CFML PDF to Image Example
 
 
-Example using [PDFBox](https://pdfbox.apache.org/) to convert PDF pages to images in CFML.
+Example using [PDFBox](https://pdfbox.apache.org/) to convert PDF pages to images in CFML (concurrently).
+
+> Requires ColdFusion 2021 / Lucee 5.x+, but the IIFE in the example can be broken out to a function/lambda expression to support ColdFusion 2018.
 
 ## Installation
 
