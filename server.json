@@ -1,0 +1,11 @@
+{
+    "name":"cfml-pdf-to-image-example",
+    "app":{
+        "cfengine":"lucee@5"
+    },
+    "web":{
+        "http":{
+            "port":8520
+        }
+    }
+}
