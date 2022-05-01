@@ -10,6 +10,7 @@
 <!--- Draw results to screen --->
 <cfloop array="#pages#" item="page" index="index">
     <cfoutput>
+        <h3>Page #index#</h3>
         <img src="data:image/jpg;base64,#binaryEncode(page, "base64")#" alt="Page #index#" />
     </cfoutput>
 </cfloop>

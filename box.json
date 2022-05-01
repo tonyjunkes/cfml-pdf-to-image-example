@@ -4,11 +4,11 @@
     "version":"1.0.0",
     "author":"@tonyjunkes",
     "dependencies":{
-        "pdfbox-2.0.25":"jar:https://search.maven.org/remotecontent?filepath=org/apache/pdfbox/pdfbox/2.0.25/pdfbox-2.0.25.jar",
-        "fontbox-2.0.25":"jar:https://search.maven.org/remotecontent?filepath=org/apache/pdfbox/fontbox/2.0.25/fontbox-2.0.25.jar"
+        "pdfbox-2.0.26":"jar:https://search.maven.org/remotecontent?filepath=org/apache/pdfbox/pdfbox/2.0.26/pdfbox-2.0.26.jar",
+        "fontbox-2.0.26":"jar:https://search.maven.org/remotecontent?filepath=org/apache/pdfbox/fontbox/2.0.26/fontbox-2.0.26.jar"
     },
     "installPaths":{
-        "pdfbox-2.0.25":"lib/pdfbox-2.0.25/",
-        "fontbox-2.0.25":"lib/fontbox-2.0.25/"
+        "pdfbox-2.0.26":"lib/pdfbox-2.0.26/",
+        "fontbox-2.0.26":"lib/fontbox-2.0.26/"
     }
 }
