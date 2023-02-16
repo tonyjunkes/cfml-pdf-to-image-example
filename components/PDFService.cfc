@@ -20,11 +20,12 @@ component displayname="PDF Service"
         try {
             var ByteArrayOutputStream = createObject("java", "java.io.ByteArrayOutputStream");
             var ImageIO = createObject("java", "javax.imageio.ImageIO");
+            var Loader = createObject("java", "org.apache.pdfbox.Loader");
             var PDFRenderer = createObject("java", "org.apache.pdfbox.rendering.PDFRenderer");
             var PDDocument = createObject("java", "org.apache.pdfbox.pdmodel.PDDocument");
 
             // Get the page tree iterator from the document
-            var pageTreeDocument = PDDocument.load(arguments.pdfFile);
+            var pageTreeDocument = Loader.loadPDF(arguments.pdfFile);
             var pageTree = pageTreeDocument.getDocumentCatalog().getPages();
             var pageIterator = pageTree.iterator();
 
@@ -34,7 +35,7 @@ component displayname="PDF Service"
                 var pageIndex = pageTree.indexOf(currentPage);
                 // Note: PDFBox is not thread safe!
                 // A new instance of the PDF is created for each thread
-                var threadDocument = PDDocument.load(arguments.pdfFile);
+                var threadDocument = Loader.loadPDF(arguments.pdfFile);
 
                 // Collect each future worker
                 futures.append(
