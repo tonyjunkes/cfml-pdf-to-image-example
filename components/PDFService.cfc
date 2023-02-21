@@ -11,8 +11,12 @@ component displayname="PDF Service"
     /**
      * @hint Converts pages of a binary PDF document into binary JPG images.
      * @pdfFile.hint A binary representation of the file to be converted.
+     * @imageFormat.hint The file format of the images being generated (e.g. GIF, PNG, JPG, etc.).
      */
-    public array function pdfToImage(binary pdfFile) {
+    public array function pdfToImage(
+		required binary pdfFile,
+		string imageFormat = "jpg"
+	) {
         var result = [];
         // Collection for async processes
         var futures = [];
@@ -45,9 +49,9 @@ component displayname="PDF Service"
                                 // Convert page to BufferedImage
                                 var renderer = PDFRenderer.init(document);
                                 var pageImage = renderer.renderImage(index);
-                                // Write as JPG to OutputStream
+                                // Write image format to OutputStream
                                 var imageOS = ByteArrayOutputStream.init();
-                                ImageIO.write(pageImage, "jpg", imageOS);
+                                ImageIO.write(pageImage, imageFormat, imageOS);
                                 // Add results to collection to be sorted later
                                 return { index: index, image: imageOS.toByteArray() };
                             }

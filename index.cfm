@@ -4,7 +4,7 @@
 <cfscript>
     PDFService = new components.PDFService();
     pdfFile = fileReadBinary(expandPath("/resources/sample.pdf"));
-    pages = PDFService.pdfToImage(pdfFile = pdfFile);
+    pages = PDFService.pdfToImage(pdfFile = pdfFile, imageFormat = "jpg");
 </cfscript>
 
 <!--- Draw results to screen --->
