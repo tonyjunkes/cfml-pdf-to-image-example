@@ -43,14 +43,15 @@ component displayname="PDF Service"
 			if (arguments?.pageLimit < 1) arguments.pageLimit = pageCount;
 
 			// Process pages concurrently
+			// Note: Page index of PDDocument is 0-based
 			var futures = [];
 			var pageCounter = 1;
-			for (var pageIndex = arguments.pageStart--; pageIndex < pageCount; pageIndex++) {
+
+			for (var pageIndex = --arguments.pageStart; pageIndex < pageCount; pageIndex++) {
 				// Break out of processing if page limit reached
 				if (pageCounter > arguments.pageLimit) break;
 				// Increase counter to maintain page limit threshold
 				pageCounter++;
-
 				// Note: PDFBox is not thread safe!
 				// A new instance of the PDF is created for each thread
 				var threadDocument = Loader.loadPDF(arguments.pdfFile);
