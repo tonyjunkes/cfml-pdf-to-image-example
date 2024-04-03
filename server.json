@@ -1,7 +1,7 @@
 {
     "name":"cfml-pdf-to-image-example",
     "app":{
-        "cfengine":"lucee@5"
+        "cfengine":"lucee"
     },
     "web":{
         "http":{

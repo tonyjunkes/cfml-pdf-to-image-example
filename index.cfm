@@ -36,3 +36,9 @@
         <img src="data:image/jpg;base64,#binaryEncode(page, "base64")#" alt="Page #index#" />
     </cfoutput>
 </cfloop>
+
+<!--- Render Example 4 --->
+<h2>Write Generated Images Back to PDF</h2>
+<cfset pages = PDFService.pdfToImage(pdfFile = pdfFile, imageFormat = "png")>
+<cfset PDFService.imagesToPDF(images = pages, outputFile = expandPath("/output/images.pdf"))>
+<p>Images written to: <a href="/output/images.pdf">images.pdf</a></p>

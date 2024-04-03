@@ -4,6 +4,7 @@ component {
     this.javaSettings.loadPaths = directoryList(expandPath("/lib"), true, "path", "*.jar");
     this.mappings = {
         "/resources": expandPath("/resources"),
-        "/components": expandPath("/components")
+        "/components": expandPath("/components"),
+        "/output": expandPath("/output")
     };
 }

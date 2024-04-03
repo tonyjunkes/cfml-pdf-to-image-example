@@ -2,18 +2,18 @@ component displayname="PDF Service"
 	output=false
 {
 	/**
-	 * @hint Constructor
+	 * Constructor
 	 */
 	public PDFService function init() {
 		return this;
 	}
 
 	/**
-	 * @hint Converts pages of a binary PDF document into binary JPG images.
-	 * @pdfFile.hint A binary representation of the file to be converted.
-	 * @imageFormat.hint The file format of the images being generated (e.g. GIF, PNG, JPG, etc.).
-	 * @pageStart.hint The page to start processing at.
-	 * @pageLimit.hint The number of pages to process in the PDF. Defaults to total number of pages when null or <1.
+	 * Converts pages of a binary PDF document into binary JPG images.
+	 * @pdfFile A binary representation of the file to be converted.
+	 * @imageFormat The file format of the images being generated (e.g. GIF, PNG, JPG, etc.).
+	 * @pageStart The page to start processing at.
+	 * @pageLimit The number of pages to process in the PDF. Defaults to total number of pages when null or <1.
 	 */
 	public array function pdfToImage(
 		required binary pdfFile,
@@ -101,5 +101,63 @@ component displayname="PDF Service"
 		}
 
 		return result;
+	}
+
+	/**
+	 * Converts a collection of images to a PDF (one image per page) and writes to the path provided.
+	 * Note: This example makes the assumption the images are formated for an A4/Letter style PDF.
+	 * The images are still scaled in an attempt to maintain image quality.
+	 * @images A collection of binary images to be converted.
+	 * @outputFile The location and name of the resulting PDF.
+	 */
+	public void function imagesToPDF(
+		required array images,
+		required string outputFile
+	) {
+		try {
+			var PDDocument = createObject("java", "org.apache.pdfbox.pdmodel.PDDocument");
+			var PDPage = createObject("java", "org.apache.pdfbox.pdmodel.PDPage");
+			var PDImageXObject = createObject("java", "org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject");
+			var PDPageContentStream = createObject("java", "org.apache.pdfbox.pdmodel.PDPageContentStream");
+
+			// Create the directory if it doesn't exist
+			var filePath = getDirectoryFromPath(arguments.outputFile);
+			if (!directoryExists(filePath)) directoryCreate(filePath);
+
+			// Create the PDF document
+			var document = PDDocument.init();
+
+			// Add each image to a new page
+			for (var image in arguments.images) {
+				// Create a new page
+				var page = PDPage.init();
+				document.addPage(page);
+
+				// Add the image to the page
+				var contentStream = PDPageContentStream.init(document, page);
+				var ximage = PDImageXObject.createFromByteArray(document, image, "");
+
+				// Calculate the scale to fit the image on the page if necessary
+				var scaleX = page.getMediaBox().getWidth() / ximage.getWidth();
+				var scaleY = page.getMediaBox().getHeight() / ximage.getHeight();
+				var scale = min(scaleX, scaleY);
+
+				// Draw the image
+				contentStream.drawImage(ximage, 0, 0, ximage.getWidth() * scale, ximage.getHeight() * scale);
+				contentStream.close();
+			}
+
+			// Save the document
+			document.save(arguments.outputFile);
+		}
+		catch(any e) {
+			// For debugging the example, don't use in production!
+			writeDump(e);
+		}
+		finally {
+			// Close streams
+			document?.close();
+			contentStream?.close();
+		}
 	}
 }

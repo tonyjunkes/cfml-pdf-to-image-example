@@ -1,7 +1,7 @@
 {
     "name":"CFML PDF to Image Example",
     "description":"Example using PDFBox to convert PDF pages to images in CFML.",
-    "version":"2.0.0",
+    "version":"2.1.0",
     "author":"@tonyjunkes",
     "dependencies":{
         "pdfbox-3.0.2":"jar:https://repo1.maven.org/maven2/org/apache/pdfbox/pdfbox/3.0.2/pdfbox-3.0.2.jar",
